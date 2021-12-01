@@ -2,11 +2,19 @@ class PagesController < ApplicationController
     before_action :get_api
     def main
         begin
-            @tags_call = @client.tag_uploaded_photo
-            @tags = @tags_call["result"]["tags"]
+            @tags_response = @client.tag_uploaded_photo
+            @tags = @tags_response["result"]["tags"]
         rescue => exception
             puts exception
-            @tags_call = exception
+        end
+    end
+
+    def upload
+        image_path = ""
+        begin
+            @upload_response = @client.upload_file(image_path)
+        rescue => exception
+            puts exception
         end
     end
 
