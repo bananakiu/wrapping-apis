@@ -1,3 +1,5 @@
+<%= @upload_response %>
+
 <%= form_with(model: image) do |form| %>
   <% if image.errors.any? %>
     <div id="error_explanation">
@@ -10,6 +12,11 @@
       </ul>
     </div>
   <% end %>
+
+  <div class="form-group">
+    <%= form.label :image_to_analyze %>
+    <%= form.file_field :image_to_analyze %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

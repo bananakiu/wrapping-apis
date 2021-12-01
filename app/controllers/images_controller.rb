@@ -9,11 +9,18 @@ class ImagesController < ApplicationController
 
   # GET /images/1 or /images/1.json
   def show
+    @test = image_params[:url]
   end
 
   # GET /images/new
   def new
     @image = Image.new
+    image_path = ""
+    begin
+        @upload_response = @client.upload_file(image_path)
+    rescue => exception
+        puts exception
+    end
   end
 
   # GET /images/1/edit
@@ -65,7 +72,8 @@ class ImagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def image_params
-      params.fetch(:image, {})
+      # :authenticity_token, :image, :commit
+      params.permit(:id, :url, :tags, :image_to_analyze)
     end
 
     def get_api
