@@ -18,6 +18,8 @@
     <%= form.file_field :image_to_analyze %>
   </div>
 
+  <%= form.hidden_field :updated_at, value: DateTime.current %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

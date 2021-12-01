@@ -9,7 +9,6 @@ class ImagesController < ApplicationController
 
   # GET /images/1 or /images/1.json
   def show
-    @test = image_params[:url]
   end
 
   # GET /images/new
@@ -30,6 +29,15 @@ class ImagesController < ApplicationController
   # POST /images or /images.json
   def create
     @image = Image.new(image_params)
+
+    # # upload to Imagga
+    # begin
+    #   @upload_response = @client.upload_file(@image.image_on_disk)
+    #   @image.upload_id = @upload_response["result"]["upload_id"]
+    # rescue => error
+    #   flash[:alert] = error.message
+    #   # redirect_to images_path
+    # end
 
     respond_to do |format|
       if @image.save
@@ -73,7 +81,9 @@ class ImagesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def image_params
       # :authenticity_token, :image, :commit
-      params.permit(:id, :url, :tags, :image_to_analyze)
+      # params.permit(:id, :url, :tags, :image_to_analyze, :image)
+      params.require(:image).permit(:id, :url, :tags, :image_to_analyze, :updated_at)
+      # params.require(:image).permit(:id, :url, :tags, :image_to_analyze) # <- weird error. cannot find ":mage"
     end
 
     def get_api

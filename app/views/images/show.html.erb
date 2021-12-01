@@ -1,7 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<%= @test %>
-<%= @test.nil? %>
+<%= @image.image_to_analyze %>
+
+<br>
+
+<%#= @image.image_on_disk %>
+
+<br>
+
+<% if @image.image_to_analyze.persisted? %>
+    <% if @image.image_to_analyze.present? %>
+        <%= image_tag(@image.image_to_analyze) %>
+    <% end %>
+<% end %>
+
 
 <%= link_to 'Edit', edit_image_path(@image) %> |
 <%= link_to 'Back', images_path %>
