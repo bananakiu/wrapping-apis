@@ -18,7 +18,7 @@ class Client
             }
         )
     end
-
+    
     def upload_file(image_path:)
         request(
             http_method: :post,
