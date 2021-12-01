@@ -22,7 +22,7 @@ class Client
     def upload_file(image_path:)
         request(
             http_method: :post,
-            endpoint: "https://api.imagga.com/v2/uploads/",
+            endpoint: "uploads",
             params: {
                 image: File.new(image_path, 'rb')
             }

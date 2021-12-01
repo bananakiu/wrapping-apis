@@ -1,6 +1,10 @@
 class ImagesController < ApplicationController
-  before_action :set_image, only: %i[ show edit update destroy ]
-  before_action :get_api, only: %i[ new ]
+  before_action :set_image, only: %i[ show edit update destroy upload ]
+  # before_action :get_api, only: %i[ upload ]
+  before_action do
+    ActiveStorage::Current.host = request.base_url
+  end
+  after_action :upload, only: %i[ create ]
 
   # GET /images or /images.json
   def index
@@ -9,17 +13,13 @@ class ImagesController < ApplicationController
 
   # GET /images/1 or /images/1.json
   def show
+    key = @image.image_to_analyze.blob.key
+    @blob_path = "storage/#{key[0..1]}/#{key[2..3]}/#{key}"
   end
 
   # GET /images/new
   def new
     @image = Image.new
-    image_path = ""
-    begin
-        @upload_response = @client.upload_file(image_path)
-    rescue => exception
-        puts exception
-    end
   end
 
   # GET /images/1/edit
@@ -29,15 +29,6 @@ class ImagesController < ApplicationController
   # POST /images or /images.json
   def create
     @image = Image.new(image_params)
-
-    # # upload to Imagga
-    # begin
-    #   @upload_response = @client.upload_file(@image.image_on_disk)
-    #   @image.upload_id = @upload_response["result"]["upload_id"]
-    # rescue => error
-    #   flash[:alert] = error.message
-    #   # redirect_to images_path
-    # end
 
     respond_to do |format|
       if @image.save
@@ -69,6 +60,34 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to images_url, notice: "Image was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def upload
+    get_api
+
+    # file path
+    key = @image.image_to_analyze.blob.key
+    @blob_path = "storage/#{key[0..1]}/#{key[2..3]}/#{key}"
+
+    # upload to Imagga
+    begin
+      # i0709705005abef67333ebc461uClsmm
+      puts "entered upload api call block"
+      # upload_response = @client.upload_file(image_path: request.base_url + @image.attachment_url)
+      # upload_response = @client.upload_file(image_path: @image.image_to_analyze.service_url)
+      # upload_response = @client.upload_file(image_path: @image.attachment_url)
+      upload_response = @client.upload_file(image_path: @blob_path)
+      
+      @image.upload_id = upload_response["result"]["upload_id"]
+      @image.save!
+      puts upload_response
+    rescue => error
+      puts "error in upload api call block"
+      puts error
+      flash[:alert] = error
+      return
+      # redirect_to images_path
     end
   end
 

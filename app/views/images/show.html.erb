@@ -1,10 +1,37 @@
 <p id="notice"><%= notice %></p>
 
-<%= @image.image_to_analyze %>
+<%= url_for @image.image_to_analyze %>
 
 <br>
 
-<%#= @image.image_on_disk %>
+<%= @image.attachment_url %>
+
+<br>
+
+<%= @image.image_to_analyze.url %>
+
+<br>
+
+<%= @image.image_to_analyze.service_url %>
+
+<br>
+
+<%= rails_blob_path(@image.image_to_analyze) %>
+
+<br>
+
+<%= @image.image_to_analyze.blob.key %>
+
+<br>
+
+<%= @blob_path %>
+
+<br>
+
+<%# @image.image_on_disk %>
+
+
+<%#= Base64.encode64(@image.image_to_analyze.download) %>
 
 <br>
 
