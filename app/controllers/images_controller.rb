@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: %i[ show edit update destroy ]
+  before_action :get_api, only: %i[ new ]
 
   # GET /images or /images.json
   def index
@@ -66,4 +67,8 @@ class ImagesController < ApplicationController
     def image_params
       params.fetch(:image, {})
     end
+
+    def get_api
+      @client = Client.new
+  end 
 end
