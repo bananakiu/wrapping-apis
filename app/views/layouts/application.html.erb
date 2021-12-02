@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WrappingApis</title>
+    <title>VisionX AI</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,21 +14,23 @@
   flex flex-col
   bg-gray-100 h-screen
   ">
-    <header class="sticky top-0 z-50">
+    <header class="sticky top-0 z-50 text-white">
       <%# navbar %>
       <div class="
       flex justify-between items-center
       h-16 px-24
       bg-gray-700 
-      text-xl text-white
+      text-xl
       ">
         <ul class="flex items-center h-full">
+          <%# logo %>
           <li class="cursor-pointer select-none mr-6 h-full">
             <a href="/" class="
             text-3xl
             flex items-center justify-center
-            h-full px-4 
-            hover:bg-gray-600 transition-all duration-200
+            h-full
+            hover:bg-gray-700 transition-all duration-200
+            text-white
             ">
               VisionX
             </a>
