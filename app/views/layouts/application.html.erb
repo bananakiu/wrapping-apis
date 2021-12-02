@@ -10,7 +10,90 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="
+  flex flex-col
+  bg-gray-100 h-screen
+  ">
+    <header class="sticky top-0 z-50">
+      <%# navbar %>
+      <div class="
+      flex justify-between items-center
+      h-16 px-24
+      bg-gray-700 
+      text-xl text-white
+      ">
+        <ul class="flex items-center h-full">
+          <li class="cursor-pointer select-none mr-6 h-full">
+            <a href="/" class="
+            text-3xl
+            flex items-center justify-center
+            h-full px-4 
+            hover:bg-gray-600 transition-all duration-200
+            ">
+              VisionX
+            </a>
+          </li>
+          
+          <li class="h-full flex items-center justify-center">
+            <a href="/" class="
+            flex items-center justify-center
+            h-full px-4 
+            hover:bg-gray-600 transition-all duration-200
+            ">
+              Home
+            </a>
+          </li>
+
+          <li class="h-full flex items-center justify-center">
+            <a href=<%= categories_path %> class="
+            flex items-center justify-center
+            h-full px-4 
+            hover:bg-gray-600 transition-all duration-200
+            ">
+              Classifiers
+            </a>
+          </li>
+
+          <li class="h-full flex items-center justify-center">
+            <a href=<%= categorize_path %> class="
+            flex items-center justify-center
+            h-full px-4 
+            hover:bg-gray-600 transition-all duration-200
+            ">
+              Classify Image
+            </a>
+          </li>
+
+          <li class="h-full flex items-center justify-center">
+            <a href=<%= tags_path %> class="
+            flex items-center justify-center
+            h-full px-4 
+            hover:bg-gray-600 transition-all duration-200
+            ">
+              Detect Concepts  
+            </a>
+          </li>
+
+          <li class="h-full flex items-center justify-center">
+            <a href=<%= detect_text_path %> class="
+            flex items-center justify-center
+            h-full px-4 
+            hover:bg-gray-600 transition-all duration-200
+            ">
+              Detect Text  
+            </a>
+          </li>
+        </ul>  
+      </div>
+    </header>
+    
+    <main class="
+    flex flex-col
+    flex-grow
+    px-24 mt-9
+    relative
+    ">
+      <%= yield %>
+    </main>
   </body>
 </html>
