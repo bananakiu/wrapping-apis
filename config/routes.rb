@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   get "result" => "pages#result"
   get "tags" => "pages#tags"
   get "categories" => "pages#categories"
-  get "categories" => "pages#categories"
+  get "categorize" => "pages#categorize"
   # get "upload" => "pages#upload"
 end

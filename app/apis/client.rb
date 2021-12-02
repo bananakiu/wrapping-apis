@@ -1,7 +1,7 @@
 class Client
     # Imagga API docs: https://docs.imagga.com/
     # possible reference: https://github.com/unsplash/imagga-auto-tag/blob/master/lib/imagga_auto_tag/client.rb
-    BASE_URL = "https://api.imagga.com/v2".freeze
+    BASE_URL = "https://api.imagga.com/v2"
 
     def initialize
     end
@@ -27,7 +27,7 @@ class Client
     def categorize(category_id, image_url)
         request(
             http_method: :get,
-            endpoint: "categorizers/#{category_id}",
+            endpoint: "categories/#{category_id}",
             params: {
                 image_url: image_url
             }
@@ -47,6 +47,7 @@ class Client
     private
     def request(http_method:, endpoint:, params: {})
         @response = connection.public_send(http_method, endpoint, params)
+        puts @response.status
         JSON.parse(@response.body)
     end
 

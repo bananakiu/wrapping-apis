@@ -31,11 +31,15 @@ class PagesController < ApplicationController
     end
 
     def categorize
-        begin
-            @tags_response = @client.tag_uploaded_photo
-            @tags = @tags_response["result"]["tags"]
-        rescue => exception
-            puts exception
+        image_params[:categorizer_id]
+        @url = image_params[:image_url]
+        if !@url.nil?
+            begin
+                @response = @client.categorize(image_params[:categorizer_id], @url)
+                @categories = @response["result"]["categories"]
+            rescue => exception
+                puts exception
+            end
         end
     end
 
@@ -53,7 +57,7 @@ class PagesController < ApplicationController
     end 
 
     def image_params
-        params.permit(:image_url, :commit)
+        params.permit(:image_url, :commit, :categorizer_id)
     end  
 end
 # response = connection.public_send("get", "tags", image_url: "https://media.istockphoto.com/photos/red-apple-with-leaf-isolated-on-white-background-picture-id185262648"

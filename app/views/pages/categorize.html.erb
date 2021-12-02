@@ -1,0 +1,25 @@
+<%= form_with url: "/categorize", method: :get do |form| %>
+    <h1>Upload Image for Categorization</h1>
+
+    <%= form.select :categorizer_id,
+        # TODO: turn into automatic list from API
+        [
+            ["general_v3", "general_v3"],
+            ["nsfw_beta", "nsfw_beta"],
+            ["personal_photos", "personal_photos"],
+            ["realestate_dwellings", "realestate_dwellings"],
+            ["realestate_rooms", "realestate_rooms"]
+        ], selected: "personal_photos"
+    %>
+
+    <%= form.text_field :image_url %>
+
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+<% end %>
+
+<% if !@categories.nil? %>
+    <%= image_tag @url %>
+    <%= @categories %>
+<% end %>
