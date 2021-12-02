@@ -1,0 +1,20 @@
+<h1>
+    Categories
+</h1>
+<% @categories.each do |category| %>
+    <h2>
+        <%= category["title"] %>
+    </h2>
+    <p>
+        <strong>ID:</strong> <%= category["id"] %>
+    </p>
+    <p>
+        <strong>Labels:</strong>
+    </p>
+    <ul>
+        <% category["labels"].each do |label| %>
+            <li><%= label %></li>
+        <% end %>
+    </ul>
+    <br>
+<% end %>

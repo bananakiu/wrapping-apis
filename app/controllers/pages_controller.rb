@@ -23,8 +23,8 @@ class PagesController < ApplicationController
 
     def categories
         begin
-            @tags_response = @client.tag_uploaded_photo
-            @tags = @tags_response["result"]["tags"]
+            @response = @client.get_categorizers
+            @categories = @response["result"]["categorizers"]
         rescue => exception
             puts exception
         end
