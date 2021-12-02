@@ -1,3 +1,9 @@
-Is tag nil? <%= @tags == nil%>
-<br>
-What is tag? <%= @tags %>
+<%= form_with do |form| %>
+    <h1>title here</h1>
+
+    <%= form.text_field :image_url %>
+
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+<% end %>

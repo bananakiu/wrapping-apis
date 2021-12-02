@@ -1,0 +1,15 @@
+<%= form_with url: "/tags", method: :get do |form| %>
+    <h1>Upload Image for Tagging</h1>
+    <div><%=  %></div>
+
+    <%= form.text_field :image_url %>
+
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+<% end %>
+
+<% if !@tags.nil? %>
+    <%= image_tag @url %>
+    <%= @tags %>
+<% end %>
