@@ -34,10 +34,10 @@ class Client
         )
     end
 
-    def detect_face(image_url)
+    def detect_text(image_url)
         request(
             http_method: :get,
-            endpoint: "faces/detections",
+            endpoint: "text",
             params: {
                 image_url: image_url
             }

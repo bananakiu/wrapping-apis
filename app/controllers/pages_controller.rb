@@ -31,12 +31,26 @@ class PagesController < ApplicationController
     end
 
     def categorize
-        image_params[:categorizer_id]
         @url = image_params[:image_url]
         if !@url.nil?
             begin
                 @response = @client.categorize(image_params[:categorizer_id], @url)
                 @categories = @response["result"]["categories"]
+            rescue => exception
+                puts exception
+            end
+        end
+    end
+
+    def detect_text
+        @url = image_params[:image_url]
+        if !@url.nil?
+            begin
+                @response = @client.detect_text(@url)
+                @texts = []
+                @response["result"]["text"].each do |text|
+                    @texts.append(text)
+                end
             rescue => exception
                 puts exception
             end

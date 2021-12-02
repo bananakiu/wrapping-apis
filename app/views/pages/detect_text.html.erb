@@ -1,0 +1,16 @@
+<%= form_with url: "/detect_text", method: :get do |form| %>
+    <h1>Upload Image for Text Detection</h1>
+
+    <%= form.text_field :image_url %>
+
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+<% end %>
+
+<% if !@texts.nil? %>
+    <%= image_tag @url %>
+    <% @texts.each do |text| %>
+        <%= text["data"] %>
+    <% end %>
+<% end %>

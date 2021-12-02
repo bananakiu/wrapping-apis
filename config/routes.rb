@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   get "tags" => "pages#tags"
   get "categories" => "pages#categories"
   get "categorize" => "pages#categorize"
+  get "detect_text" => "pages#detect_text"
   # get "upload" => "pages#upload"
 end
