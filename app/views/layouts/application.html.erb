@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application' %> <%# https://stackoverflow.com/questions/59831329/rails-6-and-tailwind-css-does-not-deploy-to-heroku %>
   </head>
 
   <body class="
@@ -20,7 +21,7 @@
       flex justify-between items-center
       h-16 px-24
       bg-gray-700 
-      text-xl
+      text-xl text-white
       ">
         <ul class="flex items-center h-full">
           <%# logo %>
@@ -30,19 +31,8 @@
             flex items-center justify-center
             h-full
             hover:bg-gray-700 transition-all duration-200
-            text-white
             ">
               <i class="fas fa-glasses mr-3"></i> VisionX
-            </a>
-          </li>
-          
-          <li class="h-full flex items-center justify-center">
-            <a href="/" class="
-            flex items-center justify-center
-            h-full px-4 
-            hover:bg-gray-600 transition-all duration-200
-            ">
-              Home
             </a>
           </li>
 
