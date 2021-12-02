@@ -1,6 +1,5 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: %i[ show edit update destroy upload ]
-  # before_action :get_api, only: %i[ upload ]
   before_action do
     ActiveStorage::Current.host = request.base_url
   end
@@ -67,8 +66,8 @@ class ImagesController < ApplicationController
     get_api
 
     # file path
-    key = @image.image_to_analyze.blob.key
-    @blob_path = "storage/#{key[0..1]}/#{key[2..3]}/#{key}"
+    # key = @image.image_to_analyze.blob.key
+    # @blob_path = "storage/#{key[0..1]}/#{key[2..3]}/#{key}"
 
     # upload to Imagga
     begin
@@ -77,11 +76,14 @@ class ImagesController < ApplicationController
       # upload_response = @client.upload_file(image_path: request.base_url + @image.attachment_url)
       # upload_response = @client.upload_file(image_path: @image.image_to_analyze.service_url)
       # upload_response = @client.upload_file(image_path: @image.attachment_url)
-      upload_response = @client.upload_file(image_path: @blob_path)
+      # upload_response = @client.upload_file(image_path: @blob_path)
+      upload_response = @client.upload_file(image64: Base64.encode64(@image.image_to_analyze.download))
+      # upload_response = @client.upload_file(image64: Base64.encode64(@image.image_to_analyze))
+
+      puts upload_response
       
       @image.upload_id = upload_response["result"]["upload_id"]
       @image.save!
-      puts upload_response
     rescue => error
       puts "error in upload api call block"
       puts error

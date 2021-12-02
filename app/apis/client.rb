@@ -6,29 +6,36 @@ class Client
     def initialize
     end
 
-    # def tag_uploaded_photo(image_upload_id:)
-    def tag_uploaded_photo
+    def tag_uploaded_photo(image_upload_id:)
         request(
             http_method: :get,
-            # endpoint: "/tags?image_upload_id=#{image_upload_id}"
-            #, params: { image_upload_id: image_upload_id}
             endpoint: "tags",
             params: {
-                image_url: "https://media.istockphoto.com/photos/red-apple-with-leaf-isolated-on-white-background-picture-id185262648"
+                # image_url: "https://media.istockphoto.com/photos/red-apple-with-leaf-isolated-on-white-background-picture-id185262648",
+                image_upload_id: image_upload_id
             }
         )
     end
     
-    def upload_file(image_path:)
+    def upload_file(image64)
         request(
             http_method: :post,
             endpoint: "uploads",
             params: {
-                image: File.new(image_path, 'rb')
+                image_base64: image64
             }
         )
     end
-
+    
+    def upload_url(img_path)
+        request(
+            http_method: :post,
+            endpoint: "uploads",
+            params: {
+                image_url: img_url
+            }
+        )
+    end
     def delete_uploaded_file(upload_id:)
         request(
             http_method: :delete,
