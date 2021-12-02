@@ -1,6 +1,8 @@
 class Client
     # Imagga API docs: https://docs.imagga.com/
-    # possible reference: https://github.com/unsplash/imagga-auto-tag/blob/master/lib/imagga_auto_tag/client.rb
+    include HttpStatusCodes
+    include ApiExceptions
+
     BASE_URL = "https://api.imagga.com/v2"
 
     def initialize
@@ -48,7 +50,8 @@ class Client
     def request(http_method:, endpoint:, params: {})
         @response = connection.public_send(http_method, endpoint, params)
         puts @response.status
-        JSON.parse(@response.body)
+        return JSON.parse(@response.body) if @response.status == HTTP_OK_CODE
+        raise error_class
     end
 
     def connection
@@ -58,5 +61,16 @@ class Client
                 "Authorization" => Rails.application.credentials.imagga[:authorization]
             }
         )
+    end
+
+    def error_class
+        case @response.status
+        when HTTP_NOT_FOUND_CODE
+            NotFoundError
+        when HTTP_UNAUTHORIZED_CODE
+            UnauthorizedError
+        else
+            ApiError
+        end
     end
 end
